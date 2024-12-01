@@ -301,7 +301,7 @@ paket-files/
 
 # CodeRush personal settings
 .cr/personal
-
+24931009
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
@@ -348,3 +348,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# Hide Advent of Code Inputs
+AdventOfCode/Inputs/*.txt
