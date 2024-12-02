@@ -10,16 +10,70 @@ public class Day02 : BaseDay
 
         foreach (string Line in _input)
         {
+            int[] levels = Line.Split(' ').Select(int.Parse).ToArray();
             string[] TempSplit = Line.Split("   ");
         }
         
     }
 
+    #region Shared
+
+    public bool isSafe(int[] levels)
+    {
+        bool Ascending = (levels[0] < levels[1]);
+        for (int i = 1; i < levels.Length; i++)
+        {
+            if (Ascending)
+            {
+                if (levels[i] > levels[i - 1])
+                {
+                    if (levels[i] - levels[i-1] <= 3)
+                    {
+                        if (i == levels.Length - 1)
+                        {
+                            return true;
+                        }
+                        continue;
+                    }
+                }
+
+                break;
+
+            }
+            else
+            {
+                if (levels[i] < levels[i - 1])
+                {
+                    if (levels[i-1] - levels[i] <= 3)
+                    {
+                        if (i == levels.Length - 1)
+                        {
+                            return true;
+                        }
+                        continue;
+                    }
+                }
+
+                break;
+            }
+        }
+
+        return false;
+    }
+    
+    #endregion
+    
     #region Part 1
 
     public string Part1()
     {
-        return 0.ToString();
+        int safeReports = 0;
+        foreach (string line in _input)
+        {
+            int[] levels = line.Split(' ').Select(int.Parse).ToArray();
+            if(isSafe(levels)) safeReports++ ;
+        }
+        return safeReports.ToString();
     }
 
     #endregion
@@ -28,7 +82,28 @@ public class Day02 : BaseDay
 
     public string Part2()
     {
-        return 0.ToString();
+        int safeReports = 0;
+        foreach (string line in _input)
+        {
+            int[] levels = line.Split(' ').Select(int.Parse).ToArray();
+            if (isSafe(levels))
+            {
+                safeReports++ ;
+            }
+            else
+            {
+                for (int i = 0; i < levels.Length; i++)
+                {
+                    int[] tempArray = levels.Where((source, index) => index != i).ToArray();
+                    if (isSafe(tempArray))
+                    {
+                        safeReports++;
+                        break;
+                    }
+                }
+            }
+        }
+        return safeReports.ToString();
     }
 
     #endregion
